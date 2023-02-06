@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAI Note</title>
+    <link rel="icon" href="./assets/image/app-logo.svg">
+    <link rel="stylesheet" href="styless.css">
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="logo-link">
+            <img src="./assets/image/app-logo.svg" alt="BAI app logo">
+            <span> BAI Note </span>
+        </div>
+        <div class="search">
+            <input class="search__input" type="text">
+            <button class="search__btn">Search</button>
+        </div>
+    </nav>
+
+    <section class="content">
+        <div class="pinned__content">
+            <h2>Pinned Note</h2>
+            <div class="card">
+                <img class="pin__logo" src="./assets/image/pinned.png" alt="pinned-icon">
+                <header class="card__header">
+                    <h3 class="card__header__title">This is Pinned Note</h3>
+                    <img id="deleteBtn" src="./assets/image/trash.png" alt="trash-icons">
+                </header>
+                <p class="card__content">
+                    This feature will be available soon!
+                </p>
+            </div>
+        </div>
+        <div class="unpinned__content">
+            <h2>Note</h2>
+        </div>
+    </section>
+
+    <button type="button" class="add__note" data-add-note-btn=""><img src="./assets/image/add-btn-light.png"
+            alt=""></button>
+    <dialog class="dialog">
+        <form method="dialog" class="dialog__form">
+            <div contenteditable="true" class="textarea text__area__title " placeholder="Title" id="d-title"></div>
+            <div contenteditable="true" class="textarea text__area__note" placeholder="Type note" id="d-content"></div>
+            <div class="dialog__form__footer">
+                <img class="color__palette__icon" src="./assets/image/color-palette-icon.png" alt="">
+                <button class="cancel__btn">Cancel</button>
+                <button class="save__btn">Save</button>
+                <ul class="color__scheme">
+                    <li class="color color-default selected__color"></li>
+                    <li class="color color-green"></li>
+                    <li class="color color-blue"></li>
+                    <li class="color color-brown"></li>
+                    <li class="color color-pink"></li>
+                    <li class="color color-purple"></li>
+                    <li class="color color-orange"></li>
+                </ul>
+            </div>
+        </form>
+    </dialog>
+    <script src="app.js"></script>
+</body>
+
+</html>
