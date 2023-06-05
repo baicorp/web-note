@@ -1,7 +1,14 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   let noteDatabase = [];
   let cardId = -1;
   loadFromLocalStorage();
+
+  const response = await fetch(
+    "https://jsonplaceholder.typicode.com/posts?_limit=50"
+  );
+  const data = await response.json();
+  console.log(data);
+  renderNoteFetch(data);
 
   const dialogTitle = document.querySelector("#d-title");
   const dialogContent = document.querySelector("#d-content");
@@ -142,6 +149,40 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         pinnedNote.appendChild(note);
       }
+    });
+    const content = document.querySelectorAll(".card__content");
+    const card = document.querySelectorAll(".card");
+    tidyUp(content, card);
+  }
+  function renderNoteFetch(noteDatabase) {
+    const unpinnedNote = document.querySelector(".unpinned__content");
+    const pinnedNote = document.querySelector(".pinned__content");
+    unpinnedNote.innerHTML = "";
+    pinnedNote.innerHTML = "";
+    const header = document.createElement("h2");
+    const header2 = document.createElement("h2");
+    header.innerText = "Pinned Note";
+    pinnedNote.append(header);
+    header2.innerText = "Note";
+    unpinnedNote.append(header2);
+    const color = [
+      "rgb(141, 212, 155)",
+      "rgb(203, 240, 248)",
+      "rgb(230, 201, 168)",
+      "rgb(253, 207, 232)",
+      "rgb(215, 174, 251)",
+      "rgb(255, 183, 111)",
+    ];
+    noteDatabase.forEach((noteObject) => {
+      const random = Math.floor(Math.random() * 6) + 1;
+      const note = createNote(
+        noteObject.id,
+        color[random],
+        noteObject.title,
+        noteObject.body,
+        false
+      );
+      unpinnedNote.appendChild(note);
     });
     const content = document.querySelectorAll(".card__content");
     const card = document.querySelectorAll(".card");
