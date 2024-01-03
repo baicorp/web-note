@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (JSON.parse(localStorage.getItem("noteDatabase")) != null) {
       noteDatabase = JSON.parse(localStorage.getItem("noteDatabase"));
-      renderNote(noteDatabase.reverse());
+      renderNote(noteDatabase);
     }
   }
 
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     pinnedNote.append(header);
     header2.innerText = "Note";
     unpinnedNote.append(header2);
-    noteDatabase.forEach((noteObject) => {
+    noteDatabase.toReversed().forEach((noteObject) => {
       const note = createNote(
         noteObject.id,
         noteObject.bgColor,
@@ -298,7 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchForm = document.querySelector("#search-form");
   searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log("search");
     let dataSet = new Set();
     const inputText = searchInput.value.toLowerCase();
     noteDatabase.forEach((note) => {
@@ -309,7 +308,6 @@ document.addEventListener("DOMContentLoaded", () => {
         dataSet.add(note);
       }
     });
-    console.log(dataSet);
     renderNote(dataSet);
   });
 });
