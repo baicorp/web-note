@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (JSON.parse(localStorage.getItem("noteDatabase")) != null) {
       noteDatabase = JSON.parse(localStorage.getItem("noteDatabase"));
-      renderNote(noteDatabase);
+      renderNote(noteDatabase.reverse());
     }
   }
 
@@ -143,9 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
         pinnedNote.appendChild(note);
       }
     });
-    const content = document.querySelectorAll(".card__content");
-    const card = document.querySelectorAll(".card");
-    tidyUp(content, card);
   }
 
   const dialog = document.querySelector("dialog");
@@ -205,18 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("noteDatabase", JSON.stringify(noteDatabase));
   }
 
-  function tidyUp() {
-    const content = document.querySelectorAll(".card__content");
-    const card = document.querySelectorAll(".card");
-    content.forEach((element, i) => {
-      if (element.innerText.length > 250) {
-        card[i].style.gridRow = "span 3";
-      } else if (element.innerText.length > 125) {
-        card[i].style.gridRow = "span 2";
-      }
-    });
-  }
-
   const addNoteBtn = document.querySelector("[data-add-note-btn]");
   addNoteBtn.addEventListener("click", () => {
     saveDialogBtn.disabled = true;
@@ -239,7 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     saveDataToDatabase(cardId, bgColor, title, content, pinned);
     renderNote(noteDatabase);
-    tidyUp();
     resetDialog();
   });
 
@@ -308,12 +292,13 @@ document.addEventListener("DOMContentLoaded", () => {
       sectionTitle.innerText = "Note";
       bodyContent.append(sectionTitle);
       renderNote(noteDatabase);
-      tidyUp();
     }
   });
 
-  const searchBtn = document.querySelector(".search__btn");
-  searchBtn.addEventListener("click", () => {
+  const searchForm = document.querySelector("#search-form");
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("search");
     let dataSet = new Set();
     const inputText = searchInput.value.toLowerCase();
     noteDatabase.forEach((note) => {
@@ -324,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dataSet.add(note);
       }
     });
+    console.log(dataSet);
     renderNote(dataSet);
-    tidyUp();
   });
 });
