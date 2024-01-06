@@ -143,28 +143,10 @@ button {
 
 .pinned__content,
 .unpinned__content {
-  column-gap: 1rem;
-  columns: 1;
-}
-
-@media only screen and (min-width: 768px) {
-  .pinned__content,
-  .unpinned__content {
-    column-gap: 1.5rem;
-    columns: 3;
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  .pinned__content,
-  .unpinned__content {
-    columns: 4;
-  }
 }
 
 .pinned__content h2,
 .unpinned__content h2 {
-  column-span: all;
   margin-bottom: 1rem;
   margin-top: 1.5rem;
 }
@@ -173,12 +155,11 @@ button {
   border: 1px solid lightgray;
   padding: 10px 15px;
   border-radius: 10px;
-  position: relative;
   transition: 200ms;
   cursor: default;
   height: fit-content;
-  margin-bottom: 1rem;
   break-inside: avoid-column;
+  width: max(280px, 300px);
 }
 
 @media only screen and (min-width: 768px) {

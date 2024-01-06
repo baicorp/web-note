@@ -24,31 +24,38 @@
     </nav>
 
     <section class="content">
-      <div class="pinned__content">
-        <h2>Pinned Note</h2>
-        <div class="card">
-          <img
-            class="pin__logo"
-            src="./assets/image/pinned.png"
-            alt="pinned-icon"
-          />
-          <header class="card__header">
-            <h3 class="card__header__title">This is Pinned Note</h3>
+      <div>
+        <h2 id="pinned-heading">Pinned Note</h2>
+        <div class="pinned__content" id="masonry-grid-pinned">
+          <div class="card">
             <img
-              id="deleteBtn"
-              src="./assets/image/trash.png"
-              alt="trash-icons"
+              class="pin__logo"
+              src="./assets/image/pinned.png"
+              alt="pinned-icon"
             />
-          </header>
-          <p class="card__content">You can pin your note here.</p>
+            <header class="card__header">
+              <h3 class="card__header__title">This is Pinned Note</h3>
+              <img
+                id="deleteBtn"
+                src="./assets/image/trash.png"
+                alt="trash-icons"
+              />
+            </header>
+            <p class="card__content">You can pin your note here.</p>
+          </div>
         </div>
       </div>
-      <div class="unpinned__content">
-        <h2>Note</h2>
+      <div>
+        <h2 id="unpinned-heading">Note</h2>
+        <div class="unpinned__content" id="masonry-grid-unpinned"></div>
       </div>
     </section>
-
-    <button type="button" class="add__note" data-add-note-btn="">
+    <button
+      type="button"
+      title="Add note"
+      class="add__note"
+      data-add-note-btn=""
+    >
       <img src="./assets/image/add-btn-light.png" alt="" />
     </button>
     <dialog class="dialog">
@@ -85,6 +92,7 @@
         </div>
       </form>
     </dialog>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

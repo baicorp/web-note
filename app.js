@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function createCard(id, bgColor, title, content, pinned) {
     const card = document.createElement("div");
-    card.setAttribute("class", "card");
+    card.setAttribute("class", "card masonry-grid-item");
     card.setAttribute("id", `${id}`);
     card.style.backgroundColor = bgColor;
     const cardPinnedIcon = document.createElement("img");
@@ -121,14 +121,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderNote(noteDatabase) {
     const unpinnedNote = document.querySelector(".unpinned__content");
     const pinnedNote = document.querySelector(".pinned__content");
+    const unpinnedHeading = document.querySelector("#unpinned-heading");
+    const pinnedHeading = document.querySelector("#pinned-heading");
+    pinnedHeading.style.display = "none";
+    unpinnedHeading.style.display = "none";
     unpinnedNote.innerHTML = "";
     pinnedNote.innerHTML = "";
-    const header = document.createElement("h2");
-    const header2 = document.createElement("h2");
-    header.innerText = "Pinned Note";
-    pinnedNote.append(header);
-    header2.innerText = "Note";
-    unpinnedNote.append(header2);
     noteDatabase.toReversed().forEach((noteObject) => {
       const note = createNote(
         noteObject.id,
@@ -139,9 +137,25 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       if (noteObject.pinned === false) {
         unpinnedNote.appendChild(note);
+        unpinnedHeading.style.display = "block";
+        unpinnedHeading.style.marginBottom = "1.5rem";
+        unpinnedHeading.style.marginTop = "2rem";
       } else {
         pinnedNote.appendChild(note);
+        pinnedHeading.style.display = "block";
+        pinnedHeading.style.marginBottom = "1.5rem";
+        pinnedHeading.style.marginTop = "2rem";
       }
+    });
+    const gridPinned = document.querySelector("#masonry-grid-pinned");
+    const gridUnpinned = document.querySelector("#masonry-grid-unpinned");
+    const masonryPinned = new Masonry(gridPinned, {
+      itemSelector: ".masonry-grid-item",
+      gutter: 15,
+    });
+    const masonryUnpinned = new Masonry(gridUnpinned, {
+      itemSelector: ".masonry-grid-item",
+      gutter: 15,
     });
   }
 
@@ -288,9 +302,6 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput.addEventListener("input", () => {
     if (searchInput.value.trim() === "") {
       bodyContent.innerHTML = "";
-      const sectionTitle = document.createElement("h2");
-      sectionTitle.innerText = "Note";
-      bodyContent.append(sectionTitle);
       renderNote(noteDatabase);
     }
   });
@@ -298,14 +309,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchForm = document.querySelector("#search-form");
   searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    let dataSet = new Set();
+    let dataSet = [];
     const inputText = searchInput.value.toLowerCase();
     noteDatabase.forEach((note) => {
       if (
         note.title.toLowerCase().includes(inputText) ||
         note.content.toLowerCase().includes(inputText)
       ) {
-        dataSet.add(note);
+        dataSet.push(note);
       }
     });
     renderNote(dataSet);
